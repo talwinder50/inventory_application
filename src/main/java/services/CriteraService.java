@@ -1,9 +1,11 @@
 package services;
 
-import model.Greeting;
 
-public interface GreetingService {
+import model.SearchCriteria;
 
-	public Greeting createNewGreeting(String name,String gender);	
+public interface CriteraService {
+
+	public SearchCriteria findDisplayName(String displayName);
+    public SearchCriteria saveSearchCriteria(SearchCriteria searchCriteria);
 	
 }

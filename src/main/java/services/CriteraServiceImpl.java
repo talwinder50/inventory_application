@@ -1,28 +1,28 @@
 package services;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import model.Greeting;
-import repository.GreetingRepository;
+import model.SearchCriteria;
 
 @Service
-public class GreetingServiceImpl implements GreetingService {
+public class CriteraServiceImpl implements CriteraService {
   
 	@Autowired
-	GreetingRepository repo;
-	
-	  private static final String template = "Waheguru ji ka khalsa waheguru ji ki fateh, %s";
-	  private final AtomicLong counter = new AtomicLong();	
-	
-	public Greeting createNewGreeting(String name,String gender)
-    {
-    
-	return repo.findByGender(gender);
-		//return new Greeting(counter.incrementAndGet(), String.format(template, name),gender);
-    }
+	//CriteriaRepositoryTest repo;
+
+	@Override
+	public SearchCriteria findDisplayName(String displayName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SearchCriteria saveSearchCriteria(SearchCriteria searchCriteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
     
 	
 }

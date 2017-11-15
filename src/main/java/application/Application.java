@@ -2,11 +2,12 @@ package application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 
-@SpringBootApplication(scanBasePackages ={"configuration","controller"})
+@SpringBootApplication(scanBasePackages ={"configuration","controller","model"})
 //@EnableJpaRepositories(basePackages= {"repository"})
-//@EntityScan("model")
+@EntityScan("model")
 public class Application {
 
     public static void main(String[] args) {

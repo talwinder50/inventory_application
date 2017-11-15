@@ -4,33 +4,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import model.Greeting;
-import services.GreetingService;
+import model.SearchCriteria;
+import services.CriteraService;
 
 @RestController
-public class GreetingController {
-
-   /* private static final String template = "Waheguru ji ka khalsa waheguru ji ki fateh, %s";
-   
-    private final AtomicLong counter = new AtomicLong();*/
-
- 
-    
-   /* @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name,
-    		@RequestParam(value="gender", defaultValue="Oneness")String gender) {
-        return new Greeting(counter.incrementAndGet(), String.format(template, name)
-      );
-    }*/
+public class CriteraController {
 	
 	   @Autowired
-	   GreetingService service;
+	   CriteraService service;
 	   
-    @RequestMapping("/greeting")        
-        public Greeting createNewGreeting(@RequestParam(value="name", defaultValue="World")String name,
-        		@RequestParam(value="gender", defaultValue="Oneness")String gender)
+    @RequestMapping("/searchCritera")        
+        public SearchCriteria findDisplayName(@RequestParam(value="displayName")String displayName)
         {       
-        	return service.createNewGreeting(name, gender);     	
+        	return service.findDisplayName(displayName);
         }  
     
     

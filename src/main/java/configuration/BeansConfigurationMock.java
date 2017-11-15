@@ -4,16 +4,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import profiles.Mock;
-import services.GreetingService;
-import services.GreetingServiceImplMock;
+import services.CriteraService;
+import services.CriteraServiceImplMock;
 
 @Configuration
 @Mock
 public class BeansConfigurationMock {
 
 	@Bean
-	public GreetingService greetingService() {
-		return new GreetingServiceImplMock();
+	public CriteraService greetingService() {
+		return new CriteraServiceImplMock();
 	}
 	
 	
