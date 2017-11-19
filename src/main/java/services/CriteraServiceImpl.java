@@ -4,25 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import model.SearchCriteria;
+import repository.SearchCriteriaRepository;
 
 @Service
 public class CriteraServiceImpl implements CriteraService {
   
 	@Autowired
-	//CriteriaRepositoryTest repo;
+	SearchCriteriaRepository repo;
 
 	@Override
-	public SearchCriteria findDisplayName(String displayName) {
+	public Iterable<SearchCriteria> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		Iterable<SearchCriteria> search = (Iterable<SearchCriteria>) repo.findAll();
+		return search;
 	}
-
-	@Override
-	public SearchCriteria saveSearchCriteria(SearchCriteria searchCriteria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-    
 	
 }

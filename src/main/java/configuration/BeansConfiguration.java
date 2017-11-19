@@ -6,14 +6,21 @@ import org.springframework.context.annotation.Configuration;
 import profiles.Production;
 import services.CriteraService;
 import services.CriteraServiceImpl;
+import services.ServerInfo;
+import services.ServerInfoImpl;
 
 @Configuration
 @Production
 public class BeansConfiguration {
 	
 	@Bean
-	public CriteraService greetingService() {
+	public CriteraService criteraService() {
 		return new CriteraServiceImpl();
+	}
+	
+	@Bean
+	public ServerInfo serverInfo() {
+		return new ServerInfoImpl();
 	}
 	
 

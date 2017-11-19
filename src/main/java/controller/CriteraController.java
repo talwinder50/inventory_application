@@ -13,12 +13,10 @@ public class CriteraController {
 	   @Autowired
 	   CriteraService service;
 	   
-    @RequestMapping("/searchCritera")        
-        public SearchCriteria findDisplayName(@RequestParam(value="displayName")String displayName)
+	   @RequestMapping("/searchCriteriaAll")       
+        public Iterable<SearchCriteria> findAll()
         {       
-        	return service.findDisplayName(displayName);
+        	return service.findAll();
         }  
-    
-    
-    
-    }
+
+ }

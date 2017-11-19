@@ -16,6 +16,9 @@ public class SearchCriteria {
 	
 	@Column
     private String displayName;
+	
+	public SearchCriteria() {
+	}
       
     public SearchCriteria(int id, String displayName) {
         this.id = id;
