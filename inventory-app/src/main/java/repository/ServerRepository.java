@@ -10,7 +10,7 @@ public interface ServerRepository extends PagingAndSortingRepository<Server,Stri
 	
 	List<Server> findAll();
 	
-	List<Server> findByServerNameLike(String serverName);
+	//List<Server> findByServerNameLike(String serverName);
 	List<Server> findByManagerNameContaining(String managerName);
 	List<Server> findByServerJbossVersion(double ServerJbossVersion);	
 	List<Server> findByTier(String tier);

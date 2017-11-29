@@ -1,10 +1,12 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,36 +14,40 @@ import javax.persistence.Table;
 public class Server implements Serializable {
 
 	private static final long serialVersionUID = -3009157732242241606L;
-    
-    @Id
-	@Column(name = "server_name",unique=true, nullable = false, length = 180)
+
+	@Id
+	@Column(name = "server_name", unique = true, nullable = false, length = 180)
 	private String serverName;
-    @Column(name = "Responsible_Manager")
-    private String  managerName;
-    
+
+	@Column(name = "manager_name")
+	private String managerName;
+
 	private String enviornment;
 
-	@Column(name = "tier",nullable = false, length = 60)
+	@Column(name = "tier", nullable = false, length = 60)
 	private String tier;
-    
-	@Column(name = "type",nullable = false, length = 60)
+
+	@Column(name = "type", nullable = false, length = 60)
 
 	private String type;
-	
-	 @Column(name = "cpu_count",nullable = false, length = 60)
-		private Integer cpuCount;
-	
-	@Column(name = "ram_allocated",nullable = false, length = 60)
+
+	@Column(name = "cpu_count", nullable = false, length = 60)
+	private Integer cpuCount;
+
+	@Column(name = "ram_allocated", nullable = false, length = 60)
 	private String ramAllocated;
-	
+
 	private Double serverJbossVersion;
-	
-	@Column(name = "patchingCycle",nullable = false, length = 60)
+
+	@Column(name = "patching_cycle", nullable = false, length = 60)
 	private String patchingCycle;
+	
+	@OneToMany(mappedBy = "applicationName")
+    private List<Application> applications;
+	
 
 	public Server() {
 	}
-
 
 	public String getType() {
 		return type;
@@ -50,8 +56,7 @@ public class Server implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-     
-	
+
 	public String getTier() {
 		return tier;
 	}
@@ -60,57 +65,37 @@ public class Server implements Serializable {
 		this.tier = tier;
 	}
 
-	
-	
-	 public String getServerName() {
-		return serverName;
-	}
-
-
-	public void setServerName(String serverName) {
-		this.serverName = serverName;
-	}
-
-
 	public Integer getCpuCount() {
 		return cpuCount;
 	}
-
 
 	public void setCpuCount(Integer cpuCount) {
 		this.cpuCount = cpuCount;
 	}
 
-
 	public String getRamAllocated() {
 		return ramAllocated;
 	}
-
 
 	public void setRamAllocated(String ramAllocated) {
 		this.ramAllocated = ramAllocated;
 	}
 
-
 	public String getPatchingCycle() {
 		return patchingCycle;
 	}
-
 
 	public void setPatchingCycle(String patchingCycle) {
 		this.patchingCycle = patchingCycle;
 	}
 
-
 	public String getManagerName() {
-			return managerName;
-		}
+		return managerName;
+	}
 
-		public void setManagerName(String managerName) {
-			this.managerName = managerName;
-		}
-
-	
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
+	}
 
 	public String getEnviornment() {
 		return enviornment;
@@ -120,24 +105,31 @@ public class Server implements Serializable {
 		this.enviornment = enviornment;
 	}
 
-
 	public double getServerJbossVersion() {
 		return serverJbossVersion;
 	}
 
-	public void setServerJbossVersion(double serverJbossVersion) {
-		this.serverJbossVersion = serverJbossVersion;
-	}
-	public Server(String server_name,String Responsible_manager, String type,String ram_allocated,int cpuCount,double serverJbossVersion,String tier) 
-	{
-		this.serverName = server_name;
-		this.managerName =Responsible_manager;
-		this.type = type;
-		this.tier =tier;
-		this.serverJbossVersion =serverJbossVersion;
-		this.cpuCount =cpuCount;
-		
+	public String getServerName() {
+		return serverName;
 	}
 
-	
+	public void setServerName(String serverName) {
+		this.serverName = serverName;
+	}
+
+	public void setServerJbossVersion(Double serverJbossVersion) {
+		this.serverJbossVersion = serverJbossVersion;
+	}
+
+	public Server(String Responsible_manager, String type, String ram_allocated, int cpuCount,
+			double serverJbossVersion, String tier) {
+
+		this.managerName = Responsible_manager;
+		this.type = type;
+		this.tier = tier;
+		this.serverJbossVersion = serverJbossVersion;
+		this.cpuCount = cpuCount;
+
+	}
+
 }

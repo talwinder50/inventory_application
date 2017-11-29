@@ -53,8 +53,8 @@ public class ServerInfoImpl implements ServerService {
 		}
 		else if (request.getServerName() != null )   {
 			logger.info(" [Method]=findServerByServerName");
-		    List<Server> servers= serverRepository.findByServerNameLike(request.getServerName());
-			response.getAllServer().addAll(servers);
+		   // List<Server> servers= serverRepository.findByServerNameLike(request.getServerName());
+			//response.getAllServer().addAll(servers);
 		}
 		else {
 			logger.info(" [Method]=findAll");
