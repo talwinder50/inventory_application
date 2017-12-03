@@ -7,7 +7,7 @@ import profiles.Production;
 import services.CriteraService;
 import services.CriteraServiceImpl;
 import services.ServerService;
-import services.ServerInfoImpl;
+import services.ServerServiceImpl;
 
 @Configuration
 @Production
@@ -20,7 +20,7 @@ public class BeansConfiguration {
 	
 	@Bean
 	public ServerService serverInfo() {
-		return new ServerInfoImpl();
+		return new ServerServiceImpl();
 	}
 	
 

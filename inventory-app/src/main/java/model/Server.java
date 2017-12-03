@@ -42,7 +42,7 @@ public class Server implements Serializable {
 	@Column(name = "patching_cycle", nullable = false, length = 60)
 	private String patchingCycle;
 	
-	@OneToMany(mappedBy = "applicationName")
+	@OneToMany(mappedBy = "serverName")
     private List<Application> applications;
 	
 
@@ -121,9 +121,10 @@ public class Server implements Serializable {
 		this.serverJbossVersion = serverJbossVersion;
 	}
 
-	public Server(String Responsible_manager, String type, String ram_allocated, int cpuCount,
+	public Server(String serverName, String Responsible_manager, String type, String ram_allocated, int cpuCount,
 			double serverJbossVersion, String tier) {
 
+		this.serverName =serverName;
 		this.managerName = Responsible_manager;
 		this.type = type;
 		this.tier = tier;

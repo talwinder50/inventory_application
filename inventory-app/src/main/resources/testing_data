@@ -1,0 +1,15 @@
+http://localhost:8080/servers/add
+
+{ 
+"serverName":"mrkcrsbtvlpr05",
+"managerName":"Clifford",
+"enviornment":"PROD",
+"tier":"BT",
+"type": "VM",
+"cpuCount": 3,
+"ramAllocated":12,
+"serverJbossVersion":5.2,
+"patchingCycle":"Quaterly"
+}
+
+http://localhost:8080/servers/delete
