@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,11 +14,10 @@ import vo.SearchServerRequest;
 import vo.SearchServerResponse;
 
 @RestController
-@RequestMapping("/servers")
 public class ServerController {
     @Autowired
 	ServerService service;
-	@GetMapping("/find")
+	@GetMapping("/servers")
 	public SearchServerResponse findBy(
 			@RequestParam(value="managerName",required = false)String managerName,
 			@RequestParam(value="jbossVersion",required = false ,defaultValue="0.0")Double jbossVersion,
@@ -28,8 +26,7 @@ public class ServerController {
 			@RequestParam(value="enviornment",required = false)String enviornment,
 			@RequestParam(value="patchingCycle",required = false)String patchingCycle,
 			@RequestParam(value="serverName",required = false)String serverName)
-	{
-            
+	{            
 		SearchServerResponse response = new SearchServerResponse();
 		SearchServerRequest request = new SearchServerRequest();
 		request.setManagerName(managerName);
@@ -43,7 +40,7 @@ public class ServerController {
 		return response ;
 	}
 	
-	@PostMapping("/add")
+	@PostMapping("/servers")
 	public SearchServerResponse addServer(@RequestBody final Server server)
 	{
 		SearchServerResponse response = new SearchServerResponse();
@@ -55,7 +52,7 @@ public class ServerController {
 		
 	}
 	
-	@DeleteMapping("/delete")
+	@DeleteMapping("/servers")
 	public SearchServerResponse deleteServer(@RequestBody final Server server)
 	{
 		SearchServerResponse response = new SearchServerResponse();

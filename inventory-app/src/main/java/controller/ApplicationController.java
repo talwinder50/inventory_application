@@ -3,9 +3,9 @@ package controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,12 +15,11 @@ import vo.ApplicationRequest;
 import vo.ApplicationResponse;
 
 @RestController
-@RequestMapping("/applications")
 public class ApplicationController {
 
 	 @Autowired
 	 ApplicationService service;
-	 @GetMapping("/find")
+	 @GetMapping("/applications")
 	
 	 public ApplicationResponse findBy(
 				@RequestParam(value="appName",required = false)String applicationName,
@@ -36,7 +35,7 @@ public class ApplicationController {
 			response = service.findApplicationBy(request);
 			return response ;
 		}
-	 @PostMapping("/add")
+	 @PostMapping("/applications")
 		public ApplicationResponse addApplication(@RequestBody final Application application)
 		{
 		    ApplicationResponse response = new ApplicationResponse();
@@ -48,15 +47,18 @@ public class ApplicationController {
 			
 		}
 		
-		@DeleteMapping("/delete")
-		public ApplicationResponse deleteServer(@RequestBody final Application application)
+	    @DeleteMapping("/applications")
+	    public void deleteApplicationAll()
 		{
-			ApplicationResponse response = new ApplicationResponse();
-			ApplicationRequest request = new ApplicationRequest();
-			service.deleteApplication(application);
-			request.setApplicationName(application.getApplicationName());;
-			response = service.findApplicationBy(request);
-			return response; 
+			service.deleteApplicationAll();;
+			
+		}
+		@DeleteMapping("/applications/{id}")
+		public void deleteApplication(@PathVariable("id") int applicationId)
+		{
+		
+			service.deleteApplication(applicationId);
+	
 			
 		}
 		

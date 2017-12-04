@@ -1,5 +1,6 @@
 package services;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -58,17 +59,23 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 
-	public ApplicationResponse deleteApplication(Application application) {
-		 ApplicationResponse response = new  ApplicationResponse(); 
-		 application.getApplicationName();
-	     applicationRepository.delete(application.getApplicationName()); 	
-	     List<Application> applications= applicationRepository.findByApplicationNameLike(application.getApplicationName());
-		 response.getAllApplication().addAll(applications);
-	     logger.info(" [Method]=Application Deleted");
-         return response;
+	public void deleteApplicationAll() {
+		logger.info(" [Method]=Application going to Delete");
+		applicationRepository.deleteAll();
+		logger.info(" [Method]=Application Deleted");
 	
 	}
 
+	public void  deleteApplication(Serializable  applicationId) {
+		// TODO Auto-generated method stub
+		logger.info(" [Method]=Application going to Delete");
+		applicationRepository.delete((int) applicationId);;
+		logger.info(" [Method]=Application Deleted");
+		
+		
+	}
+
 	
+
 	
 }
