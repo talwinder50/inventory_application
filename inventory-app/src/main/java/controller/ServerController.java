@@ -32,6 +32,8 @@ public class ServerController {
 			@RequestParam(value="patchingCycle",required = false)String patchingCycle,
 			@RequestParam(value="serverName",required = false)String serverName,
 			@RequestParam(value="team",required = false)String team)
+	// search
+	// sort ... add SearchServerRequest 
 	{            
 		SearchServerResponse response = new SearchServerResponse();
 		SearchServerRequest request = new SearchServerRequest();
