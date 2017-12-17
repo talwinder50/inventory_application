@@ -4,11 +4,12 @@ public class SearchServerRequest {
 	
 	private String serverName;
 	private String managerName;
-	private double jboss_version;
+	private String jbossVersion;
 	private String tier;
 	private String type;
 	private String enviornment;
 	private String patchingCycle;
+	private String team;
 
 	public String getServerName() {
 		return serverName;
@@ -26,13 +27,6 @@ public class SearchServerRequest {
 		this.managerName = managerName;
 	}
 
-	public double getJboss_version() {
-		return jboss_version;
-	}
-
-	public void setJboss_version(double jboss_version) {
-		this.jboss_version = jboss_version;
-	}
 	
 	public String getTier() {
 		return tier;
@@ -64,6 +58,22 @@ public class SearchServerRequest {
 
 	public void setPatchingCycle(String patchingCycle) {
 		this.patchingCycle = patchingCycle;
+	}
+
+	public String getJbossVersion() {
+		return jbossVersion;
+	}
+
+	public void setJbossVersion(String jbossVersion) {
+		this.jbossVersion = jbossVersion;
+	}
+
+	public String getTeam() {
+		return team;
+	}
+
+	public void setTeam(String team) {
+		this.team = team;
 	}
 
 	

@@ -37,11 +37,16 @@ public class Server implements Serializable {
 	@Column(name = "ram_allocated", nullable = false, length = 60)
 	private String ramAllocated;
 
-	private Double serverJbossVersion;
+	private String serverJbossVersion;
 
 	@Column(name = "patching_cycle", nullable = false, length = 60)
 	private String patchingCycle;
 	
+	@Column(name = "team", nullable = true, length = 60)
+	private String team;
+	
+	
+
 	@OneToMany(mappedBy = "serverName")
     private List<Application> applications;
 	
@@ -105,7 +110,7 @@ public class Server implements Serializable {
 		this.enviornment = enviornment;
 	}
 
-	public double getServerJbossVersion() {
+	public String getServerJbossVersion() {
 		return serverJbossVersion;
 	}
 
@@ -117,12 +122,19 @@ public class Server implements Serializable {
 		this.serverName = serverName;
 	}
 
-	public void setServerJbossVersion(Double serverJbossVersion) {
+	public void setServerJbossVersion(String serverJbossVersion) {
 		this.serverJbossVersion = serverJbossVersion;
+	}
+	public String getTeam() {
+		return team;
+	}
+
+	public void setTeam(String team) {
+		this.team = team;
 	}
 
 	public Server(String serverName, String Responsible_manager, String type, String ram_allocated, int cpuCount,
-			double serverJbossVersion, String tier) {
+			String serverJbossVersion, String tier,String team) {
 
 		this.serverName =serverName;
 		this.managerName = Responsible_manager;
@@ -130,6 +142,7 @@ public class Server implements Serializable {
 		this.tier = tier;
 		this.serverJbossVersion = serverJbossVersion;
 		this.cpuCount = cpuCount;
+		this.team = team;
 
 	}
 

@@ -7,6 +7,9 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import model.Server;
@@ -29,9 +32,9 @@ public class ServerServiceImpl implements ServerService {
 				List<Server> servers= serverRepository.findByManagerNameContaining(request.getManagerName());
 				response.getAllServer().addAll(servers);		
 			}
-		else if (request.getJboss_version() != 0 )   {
+		else if (request.getJbossVersion() != null )   {
 			logger.info(" [Method]=findServerByJbossVersion");
-			List<Server> servers= serverRepository.findByServerJbossVersion(request.getJboss_version());
+			List<Server> servers= serverRepository.findByServerJbossVersion(request.getJbossVersion());
 			response.getAllServer().addAll(servers);
 		}
 		else if (request.getTier() != null)   {
@@ -57,6 +60,11 @@ public class ServerServiceImpl implements ServerService {
 		else if (request.getServerName() != null )   {
 			logger.info(" [Method]=findServerByServerName");
 		    List<Server> servers= serverRepository.findByServerNameLike(request.getServerName());
+		    response.getAllServer().addAll(servers);
+		}
+		else if (request.getTeam() != null )   {
+			logger.info(" [Method]=findServerByTeam");
+		    List<Server> servers= serverRepository.findByTeamLike(request.getTeam());
 		    response.getAllServer().addAll(servers);
 		}
 		else {
@@ -92,8 +100,19 @@ public class ServerServiceImpl implements ServerService {
          return response;
      }
 
+	@Override
+	public Page<Server> findPaginated(Pageable pageable) {
+		return serverRepository.findAll(pageable);
+	}
+
+   /* @Override
+    public Page<Server> findPaginated(int page, int size) {
+        return serverRepository.findAll(new PageRequest(page, size));
+    }
+		*/
     
-		
+    
+    
 	}
 	
 
