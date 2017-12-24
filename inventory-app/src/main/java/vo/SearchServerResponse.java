@@ -2,14 +2,27 @@ package vo;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import model.Server;
 public class SearchServerResponse {
 	
 	 protected List<Server> servers;
+	// protected Page<Server> server;
+	 
+	 private SearchMetaData searchMetaData;
+	 
+	 
 
-	 public List<Server> getAllServer() {
+	 public SearchMetaData getSearchMetaData() {
+		return searchMetaData;
+	}
+	public void setSearchMetaData(SearchMetaData searchMetaData) {
+		this.searchMetaData = searchMetaData;
+	}
+	public List<Server> getAllServer() {
 	        if (servers == null) {
-	        	servers = new LinkedList<Server>();
+	        	servers =  new LinkedList<Server>();
 	        }
 	        return this.servers;
 	    }
@@ -19,6 +32,7 @@ public class SearchServerResponse {
 					+ servers + ", toString()=" + super.toString()
 					+ "]";
 		}
-
+    
+		
 	
 }

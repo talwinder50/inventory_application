@@ -1,5 +1,8 @@
 package vo;
 
+import org.springframework.data.domain.Sort;
+
+
 public class SearchServerRequest {
 	
 	private String serverName;
@@ -10,6 +13,35 @@ public class SearchServerRequest {
 	private String enviornment;
 	private String patchingCycle;
 	private String team;
+	private int page;
+	private int size;
+	private String fieldname;
+	private String ramAllocated;
+	private String cpuCount;
+
+	public String getCpuCount() {
+		return cpuCount;
+	}
+
+	public void setCpuCount(String cpuCount) {
+		this.cpuCount = cpuCount;
+	}
+
+	public String getRamAllocated() {
+		return ramAllocated;
+	}
+
+	public void setRamAllocated(String ramAllocated) {
+		this.ramAllocated = ramAllocated;
+	}
+
+	public String getFieldname() {
+		return fieldname;
+	}
+
+	public void setFieldname(String fieldname) {
+		this.fieldname = fieldname;
+	}
 
 	public String getServerName() {
 		return serverName;
@@ -74,6 +106,22 @@ public class SearchServerRequest {
 
 	public void setTeam(String team) {
 		this.team = team;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	

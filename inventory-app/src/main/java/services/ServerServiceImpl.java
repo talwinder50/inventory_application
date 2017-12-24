@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import model.Server;
 import repository.ServerRepository;
+import vo.SearchMetaData;
 import vo.SearchServerRequest;
 import vo.SearchServerResponse;
 @Service
@@ -23,14 +24,22 @@ public class ServerServiceImpl implements ServerService {
 	private static final Logger logger = LoggerFactory.getLogger(ServerServiceImpl.class);
 	@Autowired
 	ServerRepository serverRepository;
-	@Override
-	public SearchServerResponse findServerBy(SearchServerRequest request) {
+
+	public SearchServerResponse findServerBy(SearchServerRequest request,Pageable pageable) {
 		SearchServerResponse response = new SearchServerResponse();
-			
+		
+		pageable = new PageRequest(request.getPage(), request.getSize(),pageable.getSort());
+		logger.info(" findServerBy "+pageable);
 		if (request.getManagerName() != null ) {
-				logger.info(" [Method]=findServerByManagerName");
-				List<Server> servers= serverRepository.findByManagerNameContaining(request.getManagerName());
-				response.getAllServer().addAll(servers);		
+				//logger.info(" [Method]=findServerByManagerName");
+			Page<Server> servers= serverRepository.findByManagerNameContaining(request.getManagerName(),pageable);
+				logger.info(" [Method]=findServerByManagerName"+ pageable);
+				//response.getAllServer().addAll(servers);	
+				List<Server> serverslist = servers.getContent();
+				
+				//Initialize metadata
+			
+				response.getAllServer().addAll(serverslist);
 			}
 		else if (request.getJbossVersion() != null )   {
 			logger.info(" [Method]=findServerByJbossVersion");
@@ -67,16 +76,77 @@ public class ServerServiceImpl implements ServerService {
 		    List<Server> servers= serverRepository.findByTeamLike(request.getTeam());
 		    response.getAllServer().addAll(servers);
 		}
-		else {
-			logger.info(" [Method]=findAll");
-			List<Server> servers = serverRepository.findAll();
-			response.getAllServer().addAll(servers);
+		else if (request.getManagerName() != null && request.getJbossVersion() != null)   {
 			
+			Page<Server> servers= serverRepository.findByManagerNameContainingAndServerJbossVersion(request.getManagerName(), request.getJbossVersion(),pageable );
+		    logger.info(" [Method]=findServerByJbossVersion&manager"+pageable);
+		    List<Server> serverslist = servers.getContent();
+			response.getAllServer().addAll(serverslist);
 		}
+		
+		else {
+			logger.info(" [Method]=findAll pageable");
+			Page<Server> servers = serverRepository.findAll(pageable);
+		   // List<Server> servers = serverRepository.findAll();
+			//response.getAllServer().addAll(servers);
+			logger.info("find sort " + pageable);
+			List<Server> serverslist = servers.getContent();
+			
+			SearchMetaData searchMetaData =new SearchMetaData();
+			searchMetaData.setTotalElements(servers.getTotalElements());
+			searchMetaData.setSize(servers.getSize());
+			searchMetaData.setFirst(servers.isFirst());
+			searchMetaData.setLast(servers.isLast());
+			searchMetaData.setTotalPages(servers.getTotalPages());
+			searchMetaData.setNumber(servers.getNumber());
+			searchMetaData.setNumberOfElements(servers.getNumberOfElements());
+			searchMetaData.setHasNext(servers.hasNext());
+			searchMetaData.setHasPrevious(servers.hasPrevious());
+		    searchMetaData.setDirection(servers.getSort().toString());
+			response.setSearchMetaData(searchMetaData);
+			logger.info("see the response " + response + searchMetaData);
+			response.getAllServer().addAll(serverslist);
+		
+		}
+		
 		return response;	
 		
 	}
-    
+	
+	public SearchServerResponse findServerByParams(SearchServerRequest request,Pageable pageable) {
+		
+        SearchServerResponse response = new SearchServerResponse();
+		
+		pageable = new PageRequest(request.getPage(), request.getSize(),pageable.getSort());
+		
+		logger.info(" [Method]=findServerByParams pageable");
+	Page<Server> servers = serverRepository.findByParams(request.getManagerName(),request.getTeam(), pageable);
+	/*	Page<Server> servers = serverRepository.findByParams(request.getServerName(), request.getTeam(), request.getJbossVersion(),
+				                                             request.getManagerName(), request.getEnviornment(),request.getTier(),
+				                                             request.getType(),request.getRamAllocated(),request.getCpuCount(),
+				                                             pageable); */
+		logger.info("find findServerByParams " + pageable);
+		List<Server> serverslist = servers.getContent();
+		logger.info("find findServerByParams Servers" + servers);
+		SearchMetaData searchMetaData =new SearchMetaData();
+		searchMetaData.setTotalElements(servers.getTotalElements());
+		searchMetaData.setSize(servers.getSize());
+		searchMetaData.setFirst(servers.isFirst());
+		searchMetaData.setLast(servers.isLast());
+		searchMetaData.setTotalPages(servers.getTotalPages());
+		searchMetaData.setNumber(servers.getNumber());
+		searchMetaData.setNumberOfElements(servers.getNumberOfElements());
+		searchMetaData.setHasNext(servers.hasNext());
+		searchMetaData.setHasPrevious(servers.hasPrevious());
+	    searchMetaData.setDirection(servers.getSort().toString());
+		response.setSearchMetaData(searchMetaData);
+		logger.info("see the response " + response + searchMetaData);
+		response.getAllServer().addAll(serverslist);
+
+		return response;
+
+	}
+	
     public SearchServerResponse updateServer(Server request){ 
         
     	SearchServerResponse response = new SearchServerResponse();
@@ -99,18 +169,16 @@ public class ServerServiceImpl implements ServerService {
   	     logger.info(" [Method]=Server Deleted");
          return response;
      }
-
-	@Override
-	public Page<Server> findPaginated(Pageable pageable) {
-		return serverRepository.findAll(pageable);
-	}
-
-   /* @Override
-    public Page<Server> findPaginated(int page, int size) {
-        return serverRepository.findAll(new PageRequest(page, size));
-    }
-		*/
     
+   /* public Page<Server> findall(Server request,Pageable pageable){ 
+
+    	 SearchServerResponse response = new SearchServerResponse(); 
+     	
+     	Page<Server> servers = (Page<Server>) serverRepository.findAll();
+  	       response.getAllServer().remove(servers);
+  	       logger.info(" [Method]=Server Deleted");
+         return servers;
+     }*/
     
     
 	}
