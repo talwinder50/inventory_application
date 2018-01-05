@@ -1,5 +1,10 @@
 package vo;
 
+import java.util.Iterator;
+import java.util.List;
+
+import model.Server;
+
 public class SearchMetaData {
 	
 	//totalPages, sort from request, 
@@ -12,7 +17,15 @@ public class SearchMetaData {
 	private int NumberOfElements;
 	private boolean hasNext;
 	private boolean hasPrevious;
+	private Iterator<Server> serverName;
+
 	
+	public Iterator<Server> getServerName() {
+		return serverName;
+	}
+	public void setServerName(Iterator<Server> serverName) {
+		this.serverName = serverName;
+	}
 	public boolean isHasNext() {
 		return hasNext;
 	}

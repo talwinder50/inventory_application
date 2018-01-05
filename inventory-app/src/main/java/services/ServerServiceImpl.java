@@ -36,10 +36,15 @@ public class ServerServiceImpl implements ServerService {
 		Page<Server> servers = serverRepository.findByParams(request.getServerName(), request.getTeam(),
 				request.getJbossVersion(), request.getManagerName(), request.getEnviornment(), request.getTier(),
 				request.getType(), pageable);
-
+		
+		// Page<Server> servers_distinct = serverRepository.findDistincts(pageable);
+		
+        
 		logger.info("find findServerByParams " + pageable);
 		List<Server> serverslist = servers.getContent();
 		logger.info("find findServerByParams Servers" + servers);
+	//	List<Server> serversdistinct = servers_distinct.getContent();
+	//	logger.info("find findServerByParams distincts" + servers_distinct);		
 		SearchMetaData searchMetaData = new SearchMetaData();
 		searchMetaData.setTotalElements(servers.getTotalElements());
 		searchMetaData.setSize(servers.getSize());
@@ -51,10 +56,10 @@ public class ServerServiceImpl implements ServerService {
 		searchMetaData.setHasNext(servers.hasNext());
 		searchMetaData.setHasPrevious(servers.hasPrevious());
 		searchMetaData.setDirection(servers.getSort().toString());
+	//	searchMetaData.setServerName(serversdistinct.iterator());
 		response.setSearchMetaData(searchMetaData);
 		logger.info("see the response " + response + searchMetaData);
 		response.getAllServer().addAll(serverslist);
-
 		return response;
 
 	}

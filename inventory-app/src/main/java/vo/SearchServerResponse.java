@@ -3,9 +3,13 @@ package vo;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import model.Server;
 
 public class SearchServerResponse {
+
 
 	protected List<Server> servers;
 	// protected Page<Server> server;
