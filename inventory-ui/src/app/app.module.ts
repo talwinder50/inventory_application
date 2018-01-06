@@ -4,27 +4,30 @@ import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AgGridModule} from 'ag-grid-angular/main';
 import {ServerGridComponentComponent} from './server-grid-component/server-grid-component.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {ApplicationGridComponent} from './application-grid/application-grid.component';
 import {RouterModule, Routes} from '@angular/router';
-import { ServerStatusComponent } from './server-status/server-status.component';
+import { MasterdetailMasterComponent } from './masterdetail-master/masterdetail-master.component';
+import { DetailPanelComponent } from './detail-panel/detail-panel.component';
 
 const appRoutes: Routes = [
   { path: 'applications', component: ApplicationGridComponent },
   { path: 'servers',      component: ServerGridComponentComponent },
+  { path: 'applicationMaster', component: MasterdetailMasterComponent }
 ];
 @NgModule({
   declarations: [
     AppComponent,
     ServerGridComponentComponent,
-    DashboardComponent,
     ApplicationGridComponent,
-    ServerStatusComponent
+    MasterdetailMasterComponent,
+    DetailPanelComponent,
   ],
   imports: [
     BrowserModule,
     AgGridModule.withComponents(
-      [ServerGridComponentComponent]
+      [ServerGridComponentComponent,
+        DetailPanelComponent
+      ]
     ),
     HttpClientModule,
     RouterModule.forRoot(

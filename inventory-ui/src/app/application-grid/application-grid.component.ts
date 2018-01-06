@@ -1,4 +1,3 @@
-import {ServerStatusComponent} from '../server-status/server-status.component';
 import {Component, OnInit} from '@angular/core';
 import {GridOptions} from 'ag-grid';
 import {HttpClient} from '@angular/common/http';
