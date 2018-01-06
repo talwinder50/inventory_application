@@ -26,11 +26,7 @@ export class ApplicationGridComponent implements OnInit {
     };
 
     this.gridOptions.columnDefs = [
-      {
-        headerName: 'Application ID',
-        field: 'applicationID',
-        width: 200
-      },
+    
       {
         headerName: 'Application Name',
         field: 'applicationName',
