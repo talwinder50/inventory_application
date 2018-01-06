@@ -19,20 +19,54 @@ export class ServerGridComponentComponent implements OnInit {
       animateRows: true,
       pagination: true,
       floatingFilter: true,
-      paginationPageSize: 10
+      enableColResize: true,
+      paginationPageSize: 20,
+     
     };
 
     this.gridOptions.columnDefs = [
       {
         headerName: 'Server Name',
         field: 'serverName',
-        width: 120
+        width: 200,
+        suppressSizeToFit: true
       },
       {
         headerName: 'Manager Name',
         field: 'managerName',
         width: 200
-      }
+      },
+      {
+        headerName: 'Team',
+        field: 'team',
+        width: 200
+      },
+      {
+        headerName: 'Envornment',
+        field: 'enviornment',
+        width: 200
+      },
+      {
+        headerName: 'Server Jboss Version',
+        field: 'serverJbossVersion',
+        width: 200
+      },
+      {
+        headerName: 'Tier',
+        field: 'tier',
+        width: 200
+      },
+      {
+        headerName: 'Type',
+        field: 'type',
+        width: 200
+      },
+      {
+        headerName: 'Patching Cycle',
+        field: 'patchingCycle',
+        width: 200
+      },
+
     ];
 
 
@@ -43,6 +77,8 @@ export class ServerGridComponentComponent implements OnInit {
     });
 
   }
+
+
   ngOnInit() {
     console.log('Waheguru: ngOnInit');
   }
