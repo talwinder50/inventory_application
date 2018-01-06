@@ -29,6 +29,10 @@ public class Application {
 	private String maintenanceHours;
 	@Column(name = "application_enviornment", unique = false, nullable = true)
 	private String applicationEnviornment;
+	@Column(name = "Status",unique = false, nullable = true)
+	private Boolean status;
+	
+
 	@ManyToOne
 	@JoinColumn(name = "server_name", updatable = false, insertable = false, referencedColumnName = "server_name")
 	protected Server server;
@@ -83,5 +87,11 @@ public class Application {
 	public void setServerName(String serverName) {
 		this.serverName = serverName;
 	}
+	public boolean isStatus() {
+		return status;
+	}
 
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 }

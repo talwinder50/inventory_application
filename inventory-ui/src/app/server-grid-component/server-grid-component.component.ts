@@ -21,7 +21,7 @@ export class ServerGridComponentComponent implements OnInit {
       floatingFilter: true,
       enableColResize: true,
       paginationPageSize: 20,
-     
+
     };
 
     this.gridOptions.columnDefs = [
@@ -74,13 +74,12 @@ export class ServerGridComponentComponent implements OnInit {
       console.log('I CANT SEE DATA HERE:', data);
       this.gridOptions.api.setRowData(data['allServer']);
 
+
     });
-
   }
 
+    ngOnInit() {
+      console.log('Waheguru: ngOnInit');
+    }
 
-  ngOnInit() {
-    console.log('Waheguru: ngOnInit');
   }
-
-}
