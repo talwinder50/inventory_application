@@ -1,3 +1,4 @@
+import {ServerStatusComponent} from '../server-status/server-status.component';
 import {Component, OnInit} from '@angular/core';
 import {GridOptions} from 'ag-grid';
 import {HttpClient} from '@angular/common/http';
@@ -21,7 +22,7 @@ export class ApplicationGridComponent implements OnInit {
       pagination: true,
       floatingFilter: true,
       enableColResize: true,
-      paginationPageSize: 20,
+      paginationPageSize: 10,
 
     };
 
@@ -51,13 +52,23 @@ export class ApplicationGridComponent implements OnInit {
         field: 'applicationEnviornment',
         width: 200
       },
-       {
+      {
         headerName: 'Status',
         field: 'status',
-        width: 200
+        width: 200,
+        cellStyle: function(params) {
+          if (params.value === true) {
+            return {
+
+              backgroundColor: 'YellowGreen'
+            };
+
+
+          } else {
+            return {backgroundColor: 'OrangeRed'};
+          }
+        }
       }
-
-
     ];
     this.http.get('http://localhost:8180/applications').subscribe(data => {
       console.log('I CANT SEE DATA HERE:', data);
