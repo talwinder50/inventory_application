@@ -34,16 +34,34 @@ export class DetailPanelComponent implements ICellRendererAngularComp, AfterView
     }
 
     private createColumnDefs() {
-        return [{headerName: 'Call ID', field: 'callId', cellClass: 'call-record-cell'},
-            {headerName: 'Direction', field: 'direction', cellClass: 'call-record-cell'},
-            {headerName: 'Number', field: 'number', cellClass: 'call-record-cell'},
-            {
-                headerName: 'Duration',
-                field: 'duration',
-                cellClass: 'call-record-cell',
-                valueFormatter: this.secondCellFormatter
-            },
-            {headerName: 'Switch', field: 'switchCode', cellClass: 'call-record-cell'}];
+        return [
+         {
+        headerName: 'Application Name',
+        field: 'applicationName',
+        width: 100
+      },
+      {
+        headerName: 'Server Name',
+        field: 'serverName',
+        width: 100
+      },
+      {
+        headerName: 'Port',
+        field: 'port',
+        width: 100
+      }
+//        {headerName: 'Call ID', field: 'callId', cellClass: 'call-record-cell'},
+//            {headerName: 'Direction', field: 'direction', cellClass: 'call-record-cell'},
+//            {headerName: 'Number', field: 'number', cellClass: 'call-record-cell'},
+//            {
+//                headerName: 'Duration',
+//                field: 'duration',
+//                cellClass: 'call-record-cell',
+//                valueFormatter: this.secondCellFormatter
+//            },
+//            {headerName: 'Switch', field: 'switchCode', cellClass: 'call-record-cell'}
+//          
+          ];
 
     }
 
@@ -58,9 +76,9 @@ export class DetailPanelComponent implements ICellRendererAngularComp, AfterView
         $event.stopPropagation();
     }
 
-    onButtonClick() {
-        window.alert('Sample button pressed!!');
-    }
+//    onButtonClick() {
+//        window.alert('Sample button pressed!!');
+//    }
 
     refresh(): boolean {
         return false;
