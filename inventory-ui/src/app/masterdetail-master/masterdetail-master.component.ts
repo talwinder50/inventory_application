@@ -13,9 +13,10 @@ export class MasterdetailMasterComponent implements AfterViewInit {
 
   constructor(private http: HttpClient) {
     this.gridOptions = <GridOptions>{};
-    this.gridOptions.rowData = this.createRowData();
+    this.gridOptions.rowData = this.createHardCodeRowData();
     this.gridOptions.columnDefs = this.createColumnDefs();
   }
+
 
   // parent col defs 
   private createColumnDefs() {
@@ -118,13 +119,46 @@ export class MasterdetailMasterComponent implements AfterViewInit {
     }
   }
 
+  private createHardCodeRowData() {
+    const rowData =
+      [
+        {
+          applicationID: '1',
+          applicationName: 'CSP UAT',
+          serverName: 'mrkcspbtvlut01',
+          port: 8180,
+          applicationEnviornment: 'UAT',
+          status: true,
+          callRecords:
+          [
+            {
+              applicationID: '1',
+              applicationName: 'CSP PT',
+              serverName: 'mrkcspbtvlut01',
+              port: 8180,
+              applicationEnviornment: 'UAT',
+              status: true,
+            },
+            {
+              applicationID: '1',
+              applicationName: 'CSP UAT',
+              serverName: 'mrkcspbtvlut01',
+              port: 8180,
+              applicationEnviornment: 'UAT',
+              status: true,
+            }
+          ]
+        }
+      ];
+    return rowData;
+  }
 
-  //TODO:parent data - use data from original component - rest api call 
+  // TODO:parent data - use data from original component - rest api call 
   private createRowData() {
-    //Final array response
+    // Final array response
     let rowData: any[] = [];
 
-    //parent
+    // parent
     let allApplications: any[] = [];
     this.http.get('http://localhost:8180/applications').subscribe(data => {
       allApplications = data['allApplication'];
@@ -153,7 +187,7 @@ export class MasterdetailMasterComponent implements AfterViewInit {
       console.log('Final rows in', rowData);
       console.log('total rows in', rowData.length);
     });
-    
+
     console.log('Final rows', rowData);
     console.log('First row', rowData[0]);
     console.log('total app', allApplications.length);
@@ -161,7 +195,7 @@ export class MasterdetailMasterComponent implements AfterViewInit {
     /* for (let i = 0; i < 20; i++) {
        let firstName = this.firstnames[Math.floor(Math.random() * this.firstnames.length)];
        let lastName = this.lastnames[Math.floor(Math.random() * this.lastnames.length)];
- 
+
        let image = this.images[i % this.images.length];
  
        let totalDuration = 0;
@@ -203,16 +237,6 @@ export class MasterdetailMasterComponent implements AfterViewInit {
   private minuteCellFormatter(params) {
     return params.value.toLocaleString() + 'm';
   };
-  
-  private sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    console.log('sleep');
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
 
 
   // a list of names we pick from when generating data
