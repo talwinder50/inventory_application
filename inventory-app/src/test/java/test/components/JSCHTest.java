@@ -14,11 +14,11 @@ import com.jcraft.jsch.Session;
 public class JSCHTest {
 	public static void main(String[] args) {
 		try {
-			String command = "tail -f /var/log/ngtvuattsb/server.log";
+			String command = "tail -f /var/log/server.log";
 			// String command = "ls";
-			String host = "mrktsbapvlut02";
-			String user = "tsb_admin";
-			String password = "Teranet123";
+			String host = "host";
+			String user = "user";
+			String password = "password";
 
 			JSch jsch = new JSch();
 			Session session = jsch.getSession(user, host, 22);
