@@ -35,36 +35,36 @@ export class MasterdetailMasterComponent implements AfterViewInit {
       //      {headerName: 'Minutes', field: 'totalMinutes', valueFormatter: this.minuteCellFormatter, width: 225}
 
       {
-        headerName: 'Application ID',
+        headerName: 'App ID',
         field: 'applicationID',
         cellRenderer: 'group',
         cellRendererParams: {suppressCount: true},
-        width: 200,
+        width: 80,
       },
       {
-        headerName: 'Application Name',
+        headerName: 'Name',
         field: 'applicationName',
-        width: 200
+        width: 150
       },
       {
         headerName: 'Server Name',
         field: 'serverName',
-        width: 200
+        width: 150
       },
       {
         headerName: 'Port',
         field: 'port',
-        width: 200
+        width: 90
       },
       {
-        headerName: 'Application Enviornment',
+        headerName: 'Enviornment',
         field: 'applicationEnviornment',
-        width: 200
+        width: 100
       },
       {
         headerName: 'Status',
         field: 'status',
-        width: 200,
+        width: 90,
         cellStyle: function(params) {
           if (params.value === true) {
             return {
@@ -124,7 +124,7 @@ export class MasterdetailMasterComponent implements AfterViewInit {
       [
         {
           applicationID: '1',
-          applicationName: 'CSP UAT',
+          applicationName: 'CSP',
           serverName: 'mrkcspbtvlut01',
           port: 8180,
           applicationEnviornment: 'UAT',
@@ -132,23 +132,118 @@ export class MasterdetailMasterComponent implements AfterViewInit {
           callRecords:
           [
             {
-              applicationID: '1',
-              applicationName: 'CSP PT',
-              serverName: 'mrkcspbtvlut01',
-              port: 8180,
+              applicationID: '2',
+              applicationName: 'CDS',
+              serverName: 'mrkcdsbtvlut01',
+              port: 8380,
+              applicationEnviornment: 'cdsuat2',
+              status: true,
+            },
+           {
+              applicationID: '3',
+              applicationName: 'PINS',
+              serverName: 'mrkcrsbtvlut01',
+              port: 8280,
+              applicationEnviornment: 'pinspt',
+              status: false,
+            },
+            {
+              applicationID: '4',
+              applicationName: 'WRITS',
+              serverName: 'mrkcwritsvlut01',
+              port: 5001,
+              applicationEnviornment: 'writsuatws',
+              status: true,
+            },
+             {
+              applicationID: '5',
+              applicationName: 'Moneris',
+              serverName: 'mrkcpsbtvlut01',
+              port: 5001,
+              applicationEnviornment: 'www.paymenthostpage-uat.com',
+              status: true,
+            },
+               {
+              applicationID: '6',
+              applicationName: 'CRS',
+              serverName: 'mrkcpsbtvlut01',
+              port: 5001,
+              applicationEnviornment: 'crs:1699',
+              status: true,
+            },
+          ]
+        },         
+             {
+          applicationID: '2',
+          applicationName: 'CMV',
+          serverName: 'mrkcspbtvlut01',
+          port: 8180,
+          applicationEnviornment: 'UAT',
+          status: true,
+          callRecords:
+          [
+            {
+              applicationID: '7',
+              applicationName: 'EMAP',
+              serverName: 'mrkcdsbtvlut01',
+              port: 9090,
+              applicationEnviornment: 'emapptarcgis',
+              status: true,
+            },
+           {
+              applicationID: '10',
+              applicationName: 'DAWS',
+              serverName: 'mrkcrsbtvlut01',
+              port: 0,
+              applicationEnviornment: 'dawsnt',
+              status: false,
+            }
+           ]
+        },
+             {
+          applicationID: '2',
+          applicationName: 'TSB',
+          serverName: 'mrktsbapvldv01',
+          port: 8180,
+          applicationEnviornment: 'UAT',
+          status: false,
+          callRecords:
+          [
+            {
+              applicationID: '7',
+              applicationName: 'PINS',
+              serverName: 'mrkcrsbtvlut01',
+              port: 9090,
               applicationEnviornment: 'UAT',
               status: true,
             },
-            {
-              applicationID: '1',
-              applicationName: 'CSP UAT',
-              serverName: 'mrkcspbtvlut01',
-              port: 8180,
-              applicationEnviornment: 'UAT',
+           {
+              applicationID: '10',
+              applicationName: 'CDS',
+              serverName: 'mrkcdsdvut01',
+              port: 8340,
+              applicationEnviornment: 'cdsngtvint ',
+              status: false,
+            },
+           {
+              applicationID: '7',
+              applicationName: 'WRITS',
+              serverName: '172.25.207.70',
+              port: 5001,
+              applicationEnviornment: 'PT',
               status: true,
+            },
+           {
+              applicationID: '10',
+              applicationName: 'DAWS',
+              serverName: 'mrkcrsbtvlut01',
+              port: 0,
+              applicationEnviornment: 'dawsnt',
+              status: false,
             }
-          ]
+           ]
         }
+           
       ];
     return rowData;
   }

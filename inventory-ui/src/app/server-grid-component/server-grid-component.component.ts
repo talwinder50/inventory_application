@@ -21,6 +21,7 @@ export class ServerGridComponentComponent implements OnInit {
       floatingFilter: true,
       enableColResize: true,
       paginationPageSize: 20,
+      enterMovesDownAfterEdit: true
 
     };
 

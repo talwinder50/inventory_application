@@ -36,20 +36,44 @@ export class DetailPanelComponent implements ICellRendererAngularComp, AfterView
     private createColumnDefs() {
         return [
          {
-        headerName: 'Application Name',
+        headerName: 'App Name',
         field: 'applicationName',
-        width: 100
+        width: 20
+      },
+        {
+        headerName: 'Enviornment',
+        field: 'applicationEnviornment',
+        width: 30
       },
       {
         headerName: 'Server Name',
         field: 'serverName',
-        width: 100
+        width: 20
       },
       {
         headerName: 'Port',
         field: 'port',
-        width: 100
+        width: 10
+      },
+       
+       {
+         headerName: 'Status',
+        field: 'status',
+        width: 10,
+        cellStyle: function(params) {
+          if (params.value === true) {
+            return {
+
+              backgroundColor: 'YellowGreen'
+            };
+
+
+          } else {
+            return {backgroundColor: 'OrangeRed'};
+          }
+        }
       }
+      
 //        {headerName: 'Call ID', field: 'callId', cellClass: 'call-record-cell'},
 //            {headerName: 'Direction', field: 'direction', cellClass: 'call-record-cell'},
 //            {headerName: 'Number', field: 'number', cellClass: 'call-record-cell'},
