@@ -2,18 +2,21 @@ package services;
 
 import java.util.Map;
 
-import com.jcraft.jsch.JSchException;
+import services.model.RemoteFile;
+import services.model.RemoteServer;
 
+
+/**
+ * @author Talwinder Kaur
+ *
+ */
 public interface SSHService {
 	
-
 	/**
-	 * @param hostname 
-	 * @param user for hostname
+	 * TODO: Add more details about interface
 	 * @param filePath e.g. /apps/mindblowing/app.properties
 	 * @return Key and Values of configuration file
-	 * @throws JSchException 
-	 */
-	public Map<String, String> parseFile(String hostname, String user, String filePath) throws JSchException;
+	*/
+	public Map<String, String> parseFile(RemoteServer remoteServer, RemoteFile remoteFile);
 
 }
