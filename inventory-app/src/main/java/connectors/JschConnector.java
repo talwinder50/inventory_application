@@ -2,12 +2,12 @@ package connectors;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 
-import org.junit.Assert;
+import org.apache.log4j.Logger;
 
 import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -21,166 +21,105 @@ import com.jcraft.jsch.Session;
  */
 
 public class JschConnector {
+	private static final Logger LOG = Logger.getLogger(JschConnector.class);
 
-	Session session = null;
+	// Constants
+	private static final String STRICT_HOSTKEY_CHECKIN_KEY = "StrictHostKeyChecking";
+	private static final String STRICT_HOSTKEY_CHECKIN_VALUE = "no";
+	private static final String CHANNEL_TYPE = "shell";
 
-	private String username = "talwinde";
-	private String hostname = "69.89.31.176";
+	private String username;
+	private String hostname;
+	private int port;
+	private Session session;
+	private PrintStream ps;
+	private InputStream input;
+	private OutputStream ops;
+	private Channel channel;
 
-	public JschConnector() {
-	}
-
-	public JschConnector(String hostname, String username) {
+	public JschConnector(String hostname, String username, int port) {
 		this.hostname = hostname;
 		this.username = username;
+		this.port = port;
 	}
 
-	public void open() throws JSchException {
-		open(this.hostname, this.username);
-	}
-
-	public void open(String hostname, String username) throws JSchException {
+	public void open() throws JSchException, IOException {
 
 		String privateKey = "/Users/harwinderkaur/Desktop/id_rsa";
 
-		JSch jsch = new JSch();
+		final JSch jsch = new JSch();
 
-		jsch.addIdentity(privateKey,"waheguru143");
-		// jsch.setKnownHosts("/Users/harwinderkaur/.ssh");
-		System.out.println("identity added ");
-		session = jsch.getSession(username,hostname,22);		
-		System.out.println("session created.");		
-		System.out.println("session about connect.....");
-		java.util.Properties config = new java.util.Properties(); 
-		config.put("StrictHostKeyChecking", "no");
-		session.setConfig(config);
+		jsch.addIdentity(privateKey, "waheguru143");
+		LOG.info("Indentity Added");
+		session = jsch.getSession(username, hostname, port);
+		session.setConfig(STRICT_HOSTKEY_CHECKIN_KEY,
+				STRICT_HOSTKEY_CHECKIN_VALUE);
+		
+		LOG.debug("-- Try to connect to the server " + hostname + ":" + port + " with user " + hostname);
 		session.connect();
-		System.out.println("session connected.....");
-		// session.setServerAliveInterval(5000); // Check if server is alive every 5 seconds
-		// session.setServerAliveCountMax(5); 
-		System.out.println("Connecting SSH to " + hostname + " - Please wait for few seconds... ");
-		session.connect();
-		System.out.println("Connected!");
-	}
-
-	public String runCommand(String command) throws JSchException, IOException {
-
-		String ret = "";
-
-		if (!session.isConnected())
-			throw new RuntimeException("Not connected to an open session.  Call open() first!");
-
-		ChannelExec channel = null;
-		channel = (ChannelExec) session.openChannel("exec");
-		channel.setCommand(command);
-		channel.setInputStream(null);
-
-		new PrintStream(channel.getOutputStream());
-		InputStream in = channel.getInputStream(); // channel.getInputStream();
-
+		LOG.debug("-- Connection OK");
+		
+		LOG.debug("-- Open SSH channel");
+		channel = session.openChannel(CHANNEL_TYPE);
+		input = channel.getInputStream();
+        
+		//ops = channel.getOutputStream();
+		//ps = new PrintStream(ops, true);
+		
 		channel.connect();
+		LOG.debug("-- Open SSH channel OK");
 
-		// you can also send input to your running process like so:
-		// String someInputToProcess = "something";
-		// out.println(someInputToProcess);
-		// out.flush();
-
-		ret = getChannelOutput(channel, in);
-
-		channel.disconnect();
-
-		System.out.println("Finished sending commands!");
-
-		return ret;
 	}
+	public String executeCommand(String command) throws IOException {
+		ps.println(command);
 
-	private String getChannelOutput(Channel channel, InputStream in) throws IOException {
+		int size = 1024;
+		final byte[] tmp = new byte[size];
+		final StringBuilder sb = new StringBuilder();
 
-		byte[] buffer = new byte[1024];
-		StringBuilder strBuilder = new StringBuilder();
-
-		String line = "";
 		while (true) {
-			while (in.available() > 0) {
-				int i = in.read(buffer, 0, 1024);
+			while (input.available() > 0) {
+				int i = input.read(tmp, 0, 1024);
 				if (i < 0) {
 					break;
 				}
-				strBuilder.append(new String(buffer, 0, i));
-				System.out.println(line);
+				sb.append(new String(tmp, 0, i));
 			}
 
-			if (line.contains("logout")) {
+			final String output = sb.toString();
+			if (output.contains("object")) {
 				break;
 			}
 
 			if (channel.isClosed()) {
+				if (input.available() > 0) {
+					int i = input.read(tmp, 0, 1024);
+					sb.append(new String(tmp, 0, i));
+				}
 				break;
 			}
+
 			try {
 				Thread.sleep(1000);
-			} catch (Exception ee) {
+			} catch (Exception e) {
+				LOG.error(e);
 			}
 		}
 
-		return strBuilder.toString();
+		return sb.toString();
 	}
 
-	public void close() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.AutoCloseable#close()
+	 */
+	public void close() throws Exception {
+		// Close channel
+		channel.disconnect();
+		// Close session
 		session.disconnect();
-		System.out.println("Disconnected channel and session");
 	}
-
-	public void parse(String filePath) throws IOException {
-
-		try {
-			open(username, hostname);
-			String ret = runCommand("view" + filePath);
-			System.out.println(ret);
-			close();
-		} catch (JSchException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-
-	public void StartStopServer( String filePath) throws IOException {
-
-		try {
-			open(username, hostname);
-			String ret = runCommand("./" + filePath);
-			System.out.println(ret);
-			close();
-		} catch (JSchException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-
-	public void cpucores(String username, String host) throws IOException {
-
-		try {
-			open(username, host);
-			String ret = runCommand("nproc");
-			System.out.println(ret);
-			close();
-		} catch (JSchException e) {
-			Assert.fail(e.getMessage());
-		}
-	}
-
-	public static void main(String[] args) {
-
-		JschConnector ssh = new JschConnector();
-		try {
-			System.out.println("connection opening ...");
-			ssh.open();
-			System.out.println("connection opened");
-			String ret = ssh.runCommand("ls -l");
-			System.out.println(ret);
-			ssh.close();
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 }
+
