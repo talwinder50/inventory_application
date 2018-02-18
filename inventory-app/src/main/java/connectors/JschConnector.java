@@ -1,125 +1,77 @@
 package connectors;
 
-import java.io.IOException;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
+import services.model.RemoteFile;
+import services.model.RemoteServer;
+
 /**
- * @author
- * 
- * 		TODO 1. This is wrapper for JSCH library 2. Create methods to
- *         communicate to library 3. It will have jsch imports
- *
+ * TODO: write description
+ * @author 
+ * @since 0.1
  */
 
 public class JschConnector {
-	private static final Logger LOG = Logger.getLogger(JschConnector.class);
+	private static final Logger logger = Logger.getLogger(JschConnector.class);
 
 	// Constants
 	private static final String STRICT_HOSTKEY_CHECKIN_KEY = "StrictHostKeyChecking";
-	private static final String STRICT_HOSTKEY_CHECKIN_VALUE = "no";
-	private static final String CHANNEL_TYPE = "shell";
 
-	private String username;
-	private String hostname;
-	private int port;
-	private Session session;
-	private PrintStream ps;
-	private InputStream input;
-	private OutputStream ops;
-	private Channel channel;
+	// Channel Types
+	private static final String CHANNEL_TYPE_SFTP = "sftp";
 
-	public JschConnector(String hostname, String username, int port) {
-		this.hostname = hostname;
-		this.username = username;
-		this.port = port;
+	private RemoteServer remoteServer;
+
+	static {
+		Properties config = new Properties();
+		config.put(STRICT_HOSTKEY_CHECKIN_KEY, "no");
+		JSch.setConfig(config);
 	}
 
-	public void open() throws JSchException, IOException {
-
-		String privateKey = "/Users/harwinderkaur/Desktop/id_rsa";
-
-		final JSch jsch = new JSch();
-
-		jsch.addIdentity(privateKey, "waheguru143");
-		LOG.info("Indentity Added");
-		session = jsch.getSession(username, hostname, port);
-		session.setConfig(STRICT_HOSTKEY_CHECKIN_KEY,
-				STRICT_HOSTKEY_CHECKIN_VALUE);
-		
-		LOG.debug("-- Try to connect to the server " + hostname + ":" + port + " with user " + hostname);
-		session.connect();
-		LOG.debug("-- Connection OK");
-		
-		LOG.debug("-- Open SSH channel");
-		channel = session.openChannel(CHANNEL_TYPE);
-		input = channel.getInputStream();
-        
-		//ops = channel.getOutputStream();
-		//ps = new PrintStream(ops, true);
-		
-		channel.connect();
-		LOG.debug("-- Open SSH channel OK");
-
+	public JschConnector(RemoteServer remoteServer) {
+		this.remoteServer = remoteServer;
 	}
-	public String executeCommand(String command) throws IOException {
-		ps.println(command);
 
-		int size = 1024;
-		final byte[] tmp = new byte[size];
-		final StringBuilder sb = new StringBuilder();
-
-		while (true) {
-			while (input.available() > 0) {
-				int i = input.read(tmp, 0, 1024);
-				if (i < 0) {
-					break;
-				}
-				sb.append(new String(tmp, 0, i));
+	public Map<String, String> getRemoteFileContent(RemoteFile remoteFile) {
+		Map<String, String> map = new HashMap<>();
+		Session session = null;
+		ChannelSftp sftp = null;
+		try {
+			JSch jsch = new JSch();
+			if (remoteServer.isPasswordAuth()) {
+			} else {
+				jsch.addIdentity(remoteServer.getPrivateKey().getKey(), remoteServer.getPrivateKey().getPassword());
 			}
+			session = jsch.getSession(remoteServer.getUser(), remoteServer.getHost(), remoteServer.getPort());
 
-			final String output = sb.toString();
-			if (output.contains("object")) {
-				break;
+			session.connect();
+			sftp = (ChannelSftp) session.openChannel(CHANNEL_TYPE_SFTP);
+			sftp.connect();
+			InputStream inputStream = sftp.get(remoteFile.getRemotefilepath().toString());
+			BufferedInputStream bufferedStream = new BufferedInputStream(inputStream);
+			Properties props = new Properties();
+			props.load(bufferedStream);
+			for (final Entry<Object, Object> entry : props.entrySet()) {
+				map.put((String) entry.getKey(), (String) entry.getValue());
 			}
-
-			if (channel.isClosed()) {
-				if (input.available() > 0) {
-					int i = input.read(tmp, 0, 1024);
-					sb.append(new String(tmp, 0, i));
-				}
-				break;
-			}
-
-			try {
-				Thread.sleep(1000);
-			} catch (Exception e) {
-				LOG.error(e);
-			}
+		} catch (Exception e) {
+			logger.error(e);
+			throw new RuntimeException("Exception ocuured");
+		} finally {
+			sftp.disconnect();
+			session.disconnect();
 		}
-
-		return sb.toString();
+		return map;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.AutoCloseable#close()
-	 */
-	public void close() throws Exception {
-		// Close channel
-		channel.disconnect();
-		// Close session
-		session.disconnect();
-	}
-	
 }
-

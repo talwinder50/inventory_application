@@ -1,7 +1,5 @@
 package services.model;
 
-import java.nio.file.Path;
-
 /**
  * 
  * No default constructor. Reason: Object creation not allowed without
@@ -10,6 +8,7 @@ import java.nio.file.Path;
  * @author Talwinder Kaur
  * 
  * @since 1.0
+ * 
  */
 public class RemoteServer {
 
@@ -24,8 +23,11 @@ public class RemoteServer {
 	private String user;
 
 	private String password;
+	
+	private PrivateKey privateKey;
+	
+	private boolean passwordAuth;
 
-	private Path privateKey;
 
 	/**
 	 * TODO usage details for client? validation rules for client?
@@ -40,6 +42,7 @@ public class RemoteServer {
 		this.setHost(host);
 		this.setUser(user);
 		this.setPassword(password);
+		this.passwordAuth=true;
 	}
 
 	/**
@@ -49,7 +52,7 @@ public class RemoteServer {
 	 * @param user
 	 * @param privateKey
 	 */
-	public RemoteServer(String host, String user, Path privateKey) {
+	public RemoteServer(String host, String user, PrivateKey privateKey) {
 		super();
 		this.setHost(host);
 		this.setUser(user);
@@ -94,14 +97,6 @@ public class RemoteServer {
 		this.password = validatePassword(password);
 	}
 
-	public Path getPrivateKey() {
-		return privateKey;
-	}
-
-	public void setPrivateKey(Path privateKey) {
-		this.privateKey = validateKey(privateKey);
-	}
-
 	private String validateHost(String host) {
 
 		if (host == null) {
@@ -136,13 +131,17 @@ public class RemoteServer {
 		return password;
 	}
 
-	private Path validateKey(Path privateKey) {
-		// TODO rules
-		if (privateKey == null) {
-			// Runtime Exception
-			throw new IllegalArgumentException("Invalid argument" + privateKey);
-		}
+	public PrivateKey getPrivateKey() {
 		return privateKey;
 	}
+
+	public void setPrivateKey(PrivateKey privateKey) {
+		this.privateKey = privateKey;
+	}
+
+	public boolean isPasswordAuth() {
+		return passwordAuth;
+	}
+
 
 }
