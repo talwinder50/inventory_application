@@ -33,6 +33,15 @@ public class Server implements Serializable {
 
 	@Column(name = "cpu_count", nullable = false, length = 60)
 	private Integer cpuCount;
+	
+	@Column(name = "username", nullable = false, length = 60)
+	private String username;
+	
+	@Column(name = "password", nullable = false, length = 60)
+	private String password;
+	
+	@Column(name = "ssh_port", length = 60,nullable=false)
+	private int sshPort;
 
 	@Column(name = "ram_allocated", nullable = false, length = 60)
 	private String ramAllocated;

@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,6 +30,8 @@ public class Application {
 	private String applicationEnviornment;
 	@Column(name = "Status",unique = false, nullable = true)
 	private Boolean status;
+	@Column(name = "home_path",unique = false, nullable = true)
+	private Boolean homePath;
 	
 
 	@ManyToOne
@@ -80,13 +81,13 @@ public class Application {
 		this.applicationName = applicationName;
 	}
 
-	public String getServerName() {
+	/*public String getServerName() {
 		return serverName;
 	}
 
 	public void setServerName(String serverName) {
 		this.serverName = serverName;
-	}
+	}*/
 	public boolean isStatus() {
 		return status;
 	}

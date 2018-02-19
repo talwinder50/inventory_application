@@ -8,19 +8,6 @@ import services.model.RemoteFile;
 import services.model.RemoteServer;
 
 public class jschConnectorTest {
-
-
-	/*@Test
-	public void JschConnectorSessionTestClose() throws Exception {
-		new JschConnector("69.89.31.176", "talwinde", 22).close();
-	}
-
-	//"/Users/harwinderkaur/Desktop/inventory/test_property_file/config.properties"
-	
-	@Test
-	public void JschConnectorSessionTestopen() throws Exception {
-		new JschConnector("69.89.31.176", "talwinde", 22).open("STFP");
-	}*/
 	
 	@Test
 	public void JschConnectorgetRemoteFileContent() throws Exception {
