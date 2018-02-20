@@ -11,11 +11,12 @@ import services.model.RemoteServer;
 /**
  * 
  * TODO: write description
- * @author
+ * @author Talwinder Kaur
  * 
  * @since 0.1
  *
  */
+// TODO test with concurrent users and change bean scope to prototype
 @Service
 public class SshJschImpl implements SSHService {
 
@@ -24,5 +25,23 @@ public class SshJschImpl implements SSHService {
 		JschConnector jschConnector = new JschConnector(remoteServer);
 		return jschConnector.getRemoteFileContent(remoteFile);
 
+	}
+
+	/**
+	 * Write new method in connector. No JSCh imports in this class
+	 */
+	@Override
+	public RemoteCommandResponse executeRemoteCommand(RemoteCommandRequest remoteCommandRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see services.SSHService#executeRemote(services.RemoteCommandRequest)
+	 */
+	@Override
+	public RemoteCommandChunkResponse executeRemote(RemoteCommandRequest remoteCommandRequest) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

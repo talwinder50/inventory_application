@@ -66,6 +66,7 @@ public class JschConnector {
 				map.put((String) entry.getKey(), (String) entry.getValue());
 			}
 		} catch (Exception e) {
+			// TODO should process terminate?
 			logger.error(e);
 			throw new RuntimeException("Exception ocuured");
 		} finally {
