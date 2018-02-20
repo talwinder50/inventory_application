@@ -18,11 +18,13 @@ import services.model.RemoteServer;
 
 /**
  * TODO: write description
- * @author 
+ * @author Talwinder Kaur
  * @since 0.1
  */
 
 public class JschConnector {
+	
+	// TODO research best practices for logging - avoid logging impl import in each class
 	private static final Logger logger = Logger.getLogger(JschConnector.class);
 
 	// Constants
