@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import model.Application;
-import services.ApplicationService;
+import model.ApplicationInstance;
+import services.ApplicationInstanceService;
 import vo.ApplicationRequest;
 import vo.ApplicationResponse;
 
@@ -19,7 +19,7 @@ import vo.ApplicationResponse;
 public class ApplicationController {
 
 	 @Autowired
-	 ApplicationService service;
+	 ApplicationInstanceService service;
 	 
 	 @CrossOrigin(origins = { "http://localhost:4200" })
 	 @GetMapping("/applications")
@@ -39,7 +39,7 @@ public class ApplicationController {
 			return response ;
 		}
 	 @PostMapping("/applications")
-		public ApplicationResponse addApplication(@RequestBody final Application application)
+		public ApplicationResponse addApplication(@RequestBody final ApplicationInstance application)
 		{
 		    ApplicationResponse response = new ApplicationResponse();
 		    ApplicationRequest request = new ApplicationRequest();

@@ -6,6 +6,9 @@ import java.util.Map;
 
 import services.model.RemoteFile;
 import services.model.RemoteServer;
+import vo.RemoteCommandChunkResponse;
+import vo.RemoteCommandRequest;
+import vo.RemoteCommandResponse;
 
 
 /**
@@ -15,6 +18,10 @@ import services.model.RemoteServer;
 public interface SSHService {
 	
 	/**
+	 * e.g. app.properties
+	 * it will parse defined keys from specific configuration remote file located on remote server
+	 * 
+	 *  TODO: add another parameter with List<String> keysToParse
 	*/
 	// TODO rename method to readRemoteFile?
 	public Map<String, String> parseFile(RemoteServer remoteServer, RemoteFile remoteFile);

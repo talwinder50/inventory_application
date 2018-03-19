@@ -3,8 +3,11 @@ package services.model;
 public class RemoteFile {
 	
 	private String remotefilepath;
-	
-	// TODO: Enum file type - xml, yaml, json, properties, etc 
+		public RemoteFile(String filepath) {
+		super();
+		// call setters for validations instead of directly setting
+		this.setRemotefilepath(filepath);
+	}
 	
 	public String getRemotefilepath() {
 		return remotefilepath;

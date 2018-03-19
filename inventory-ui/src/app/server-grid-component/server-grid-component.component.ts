@@ -71,7 +71,7 @@ export class ServerGridComponentComponent implements OnInit {
     ];
 
 
-    this.http.get('http://localhost:8180/servers?size=100000').subscribe(data => {
+    this.http.get('http://localhost:8080/servers?size=100000').subscribe(data => {
       console.log('I CANT SEE DATA HERE:', data);
       this.gridOptions.api.setRowData(data['allServer']);
 

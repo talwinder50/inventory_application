@@ -4,9 +4,13 @@ public class ApplicationRequest {
 	private int applicationID;
 	private String applicationName;
 	private String serverName;
+	private String username;
+	private String password;
 	private int port;
 	private String maintenanceHours;
 	private String applicationEnviornment;
+	private int appLookupId;
+	private boolean realtime;
 	
 	public int getApplicationID() {
 		return applicationID;
@@ -43,5 +47,29 @@ public class ApplicationRequest {
 	}
 	public void setApplicationEnviornment(String applicationEnviornment) {
 		this.applicationEnviornment = applicationEnviornment;
+	}
+	public int getAppLookupId() {
+		return appLookupId;
+	}
+	public void setAppLookupId(int appLookupId) {
+		this.appLookupId = appLookupId;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public boolean isRealtime() {
+		return realtime;
+	}
+	public void setRealtime(boolean realtime) {
+		this.realtime = realtime;
 	}
 }

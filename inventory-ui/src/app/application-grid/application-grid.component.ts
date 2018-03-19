@@ -65,7 +65,7 @@ export class ApplicationGridComponent implements OnInit {
         }
       }
     ];
-    this.http.get('http://localhost:8180/applications').subscribe(data => {
+    this.http.get('http://localhost:8080/applications').subscribe(data => {
       console.log('I CANT SEE DATA HERE:', data);
       this.gridOptions.api.setRowData(data['allApplication']);
     });

@@ -2,6 +2,7 @@ package vo;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ public class SearchServerResponse {
 
 
 	protected List<Server> servers;
+	protected List<Object> object;
 	// protected Page<Server> server;
 
 	private SearchMetaData searchMetaData;
@@ -30,10 +32,21 @@ public class SearchServerResponse {
 		}
 		return this.servers;
 	}
+	
+	public List<Object> getAllServerObject() {
+		if (object == null) {
+			object = new LinkedList<Object>();
+			
+		
+		}
+		return this.object;
+		
+	}
 
 	@Override
 	public String toString() {
 		return "ServerResponse [Servers=" + servers + ", toString()=" + super.toString() + "]";
 	}
+	
 
 }

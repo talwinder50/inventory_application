@@ -46,9 +46,9 @@ public class ServerController {
 			@RequestParam(value = "type", required = false, defaultValue = "") String type,
 			@RequestParam(value = "enviornment", required = false, defaultValue = "") String enviornment,
 			@RequestParam(value = "patchingCycle", required = false, defaultValue = "") String patchingCycle,
-			@RequestParam(value = "serverName", required = false, defaultValue = "") String serverName,
+			@RequestParam(value = "servername", required = false, defaultValue = "") String serverName,
 			@RequestParam(value = "team", required = false, defaultValue = "") String team,
-			@SortDefault(sort = "serverName", direction = Direction.ASC) @PageableDefault(page = 0, size = 10) Pageable pageable) {
+			@SortDefault(sort = "servername", direction = Direction.ASC) @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
 		SearchServerResponse response = new SearchServerResponse();
 		SearchServerRequest request = new SearchServerRequest();
@@ -65,8 +65,8 @@ public class ServerController {
 	}
 
 	@DeleteMapping("/servers/{serverName}")
-	public SearchServerResponse deleteServer(@PathVariable(value = "serverName") String serverName,
-			@PageableDefault(page = 0, size = 10) @SortDefault(sort = "serverName", direction = Direction.ASC) Pageable pageable) {
+	public SearchServerResponse deleteServer(@PathVariable(value = "servername") String serverName,
+			@PageableDefault(page = 0, size = 10) @SortDefault(sort = "servername", direction = Direction.ASC) Pageable pageable) {
 		logger.info(" Delete starting ");
 		SearchServerResponse response = new SearchServerResponse();
 		SearchServerRequest request = new SearchServerRequest();
@@ -98,7 +98,7 @@ public class ServerController {
 	}
 
 	@PutMapping("/servers/{serverName}")
-	public @ResponseBody ResponseEntity<List> updateServer(@PathVariable(value = "serverName") String serverName,
+	public @ResponseBody ResponseEntity<List> updateServer(@PathVariable(value = "servername") String serverName,
 			@RequestBody Server newserver) {
 		if (service.isValid(newserver)) {
 			service.addServer(newserver);

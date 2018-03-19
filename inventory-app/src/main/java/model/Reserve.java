@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "Reserve")
+// @Entity
+// @Table(name = "Reserve")
 public class Reserve {
 	@Id
 	private String reserveID;

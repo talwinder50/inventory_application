@@ -10,7 +10,7 @@ import services.model.RemoteServer;
 
 public class RemoteServerTest {
 
-	// hostname can't be null
+	/*// hostname can't be null
 	@Test(expected = IllegalArgumentException.class)
 	public void RemoteServerConstructorInvalidHostTest() {
 		new RemoteServer(null, "admin", Paths.get("/apps/id_rsa"));
@@ -34,7 +34,7 @@ public class RemoteServerTest {
 		assertEquals(22, rs.getPort());
 	    
 	}
-	
+	*/
 	
 	
 }

@@ -16,8 +16,8 @@ public class JSCHTest {
 		try {
 			String command = "tail -f /var/log/server.log";
 			// String command = "ls";
-			String host = "host";
-			String user = "user";
+			String host = "69.89.31.176";
+			String user = "talwinde";
 			String password = "password";
 
 			JSch jsch = new JSch();

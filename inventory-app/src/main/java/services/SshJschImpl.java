@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import connectors.JschConnector;
 import services.model.RemoteFile;
 import services.model.RemoteServer;
+import vo.RemoteCommandChunkResponse;
+import vo.RemoteCommandRequest;
+import vo.RemoteCommandResponse;
 
 /**
  * 
@@ -24,7 +27,6 @@ public class SshJschImpl implements SSHService {
 	public Map<String, String> parseFile(RemoteServer remoteServer, RemoteFile remoteFile) {
 		JschConnector jschConnector = new JschConnector(remoteServer);
 		return jschConnector.getRemoteFileContent(remoteFile);
-
 	}
 
 	/**

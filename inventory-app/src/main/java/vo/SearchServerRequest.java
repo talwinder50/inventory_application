@@ -18,6 +18,7 @@ public class SearchServerRequest {
 	private String fieldname;
 	private String ramAllocated;
 	private String cpuCount;
+	private String username;
 
 	public String getCpuCount() {
 		return cpuCount;
@@ -122,6 +123,14 @@ public class SearchServerRequest {
 
 	public void setSize(int size) {
 		this.size = size;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	

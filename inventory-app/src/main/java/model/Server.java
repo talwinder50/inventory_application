@@ -16,9 +16,9 @@ public class Server implements Serializable {
 	private static final long serialVersionUID = -3009157732242241606L;
 
 	@Id
-	@Column(name = "server_name", unique = true, nullable = false, length = 180)
-	private String serverName;
-
+  	@Column(name = "servername", unique = true, nullable = false, length = 180)
+	private String servername;
+	
 	@Column(name = "manager_name")
 	private String managerName;
 
@@ -28,25 +28,19 @@ public class Server implements Serializable {
 	private String tier;
 
 	@Column(name = "type", nullable = false, length = 60)
+    private String type;
 
-	private String type;
-
-	@Column(name = "cpu_count", nullable = false, length = 60)
+	@Column(name = "cpu", nullable = false, length = 60)
 	private Integer cpuCount;
-	
-	@Column(name = "username", nullable = false, length = 60)
-	private String username;
-	
-	@Column(name = "password", nullable = false, length = 60)
-	private String password;
-	
+
 	@Column(name = "ssh_port", length = 60,nullable=false)
 	private int sshPort;
 
-	@Column(name = "ram_allocated", nullable = false, length = 60)
+	@Column(name = "memory", nullable = false, length = 60)
 	private String ramAllocated;
-
-	private String serverJbossVersion;
+ 
+	@Column(name = "container", nullable = false, length = 60)
+	private String container;
 
 	@Column(name = "patching_cycle", nullable = false, length = 60)
 	private String patchingCycle;
@@ -54,15 +48,21 @@ public class Server implements Serializable {
 	@Column(name = "team", nullable = true, length = 60)
 	private String team;
 	
-	
+	@OneToMany(mappedBy = "server")
+    private List<ApplicationInstance> applicationInstances;
 
-	@OneToMany(mappedBy = "serverName")
-    private List<Application> applications;
-	
+
+	public List<ApplicationInstance> getApplicationInstances() {
+		return applicationInstances;
+	}
+
+	public void setApplicationInstances(List<ApplicationInstance> applicationInstances) {
+		this.applicationInstances = applicationInstances;
+	}
 
 	public Server() {
 	}
-
+    
 	public String getType() {
 		return type;
 	}
@@ -119,20 +119,20 @@ public class Server implements Serializable {
 		this.enviornment = enviornment;
 	}
 
-	public String getServerJbossVersion() {
-		return serverJbossVersion;
+	public String getContainer() {
+		return container;
 	}
 
 	public String getServerName() {
-		return serverName;
+		return servername;
 	}
 
-	public void setServerName(String serverName) {
-		this.serverName = serverName;
+	public void setServerName(String servername) {
+		this.servername = servername;
 	}
 
-	public void setServerJbossVersion(String serverJbossVersion) {
-		this.serverJbossVersion = serverJbossVersion;
+	public void setContainer(String container) {
+		this.container = container;
 	}
 	public String getTeam() {
 		return team;
@@ -142,14 +142,24 @@ public class Server implements Serializable {
 		this.team = team;
 	}
 
-	public Server(String serverName, String Responsible_manager, String type, String ram_allocated, int cpuCount,
-			String serverJbossVersion, String tier,String team) {
 
-		this.serverName =serverName;
+
+	public int getSshPort() {
+		return sshPort;
+	}
+
+	public void setSshPort(int sshPort) {
+		this.sshPort = sshPort;
+	}
+
+	public Server(String serverName, String Responsible_manager, String type, String ram_allocated, int cpuCount,
+			String container, String tier,String team) {
+
+	//	getId().setServerName(serverName);
 		this.managerName = Responsible_manager;
 		this.type = type;
 		this.tier = tier;
-		this.serverJbossVersion = serverJbossVersion;
+		this.container = container;
 		this.cpuCount = cpuCount;
 		this.team = team;
 
