@@ -13,8 +13,5 @@ public class CriteraServiceImplMock implements CriteraService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
 	
 }

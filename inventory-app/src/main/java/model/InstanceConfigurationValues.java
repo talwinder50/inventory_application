@@ -34,6 +34,14 @@ public class InstanceConfigurationValues {
 		@Column(name = "property_value", unique = false, nullable = false)
 		private String PropertyValue;
 		
+		public long getModifiedDate() {
+			return modifiedDate;
+		}
+
+		public void setModifiedDate(long modifiedDate) {
+			this.modifiedDate = modifiedDate;
+		}
+
 		@Column(name = "modified_date")
 	    @LastModifiedDate
 	    private long modifiedDate;
@@ -41,6 +49,10 @@ public class InstanceConfigurationValues {
 		 @ManyToOne
 		 @JoinColumn(name = "config_instance_id", updatable = false, insertable = false, referencedColumnName = "config_instance_id")
 	     protected InstanceConfigurationFile instanceConfigurationFile;
+		 
+		//@ManyToOne
+		//@JoinColumn(name = "property_key", updatable = false, insertable = false, referencedColumnName = "app_property_key")
+		//protected ApplicationInstance propertyKey;
 
 		 public int getConfigValueId() {
 				return ConfigValueId;
@@ -64,6 +76,13 @@ public class InstanceConfigurationValues {
 
 			public void setPropertyValue(String propertyValue) {
 				PropertyValue = propertyValue;
+			}
+			public InstanceConfigurationFile getInstanceConfigurationFile() {
+				return instanceConfigurationFile;
+			}
+
+			public void setInstanceConfigurationFile(InstanceConfigurationFile instanceConfigurationFile) {
+				this.instanceConfigurationFile = instanceConfigurationFile;
 			}
 		
 	}

@@ -18,13 +18,13 @@ public class InstanceConfigurationFile {
 	@Column(name = "config_instance_id", unique = true, nullable = false)
 	private int ConfigInstanceId;
 	
-	
 	@Column(name = "config_file_path", unique = false, nullable = false)
 	private String ConfigFilePath;
 			
 	@ManyToOne
 	@JoinColumn(name = "application_instance_id", updatable = false, insertable = false, referencedColumnName = "id")
 	protected ApplicationInstance applicationInstance;
+	
 	
 	public int getConfigInstanceId() {
 		return ConfigInstanceId;
@@ -40,6 +40,13 @@ public class InstanceConfigurationFile {
 
 	public void setConfigFilePath(String line) {
 		ConfigFilePath = line;
+	}
+	public ApplicationInstance getApplicationInstance() {
+		return applicationInstance;
+	}
+
+	public void setApplicationInstance(ApplicationInstance applicationInstance) {
+		this.applicationInstance = applicationInstance;
 	}
 
 }

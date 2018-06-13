@@ -19,7 +19,7 @@ import vo.SearchServerRequest;
 import vo.SearchServerResponse;
 
 @Service
-public class DataSyncManagerServiceImpl implements DataSyncManagerService {
+public class RealTimeValueImpl implements RealTimeValueService {
 	private static final Logger logger = LoggerFactory.getLogger(ServerServiceImpl.class);
 	@Autowired
 	ServerRepository serverRepository;
@@ -28,7 +28,7 @@ public class DataSyncManagerServiceImpl implements DataSyncManagerService {
 	SSHService sshservice;
 
 	@Override
-	public SearchServerResponse syncAll(SearchServerRequest request) {
+	public SearchServerResponse fetchRealtime(SearchServerRequest request) {
 
 		int i = 0;
 		SearchServerResponse response = new SearchServerResponse();
@@ -58,58 +58,5 @@ public class DataSyncManagerServiceImpl implements DataSyncManagerService {
 
 		Server server = serverRepository.findServerUserPass(request.getServerName());
 		return server.getApplicationInstances();
-		
-//		List<ApplicationInstance> resultlist = new ArrayList<ApplicationInstance>();
-//		System.out.println("result of the servers" + "  " + servers);
-//		
-//		for(Server server: servers) {
-//			ApplicationInstance app = new ApplicationInstance();
-//			app.setServerName(server.getServerName());
-//			app.setInstanceConfigurationFile(server.getIn);
-//			
-//		}
-//		Iterator iterate = connectionDetails.iterator();
-//		while (iterate.hasNext()) {
-//			logger.debug("getting list of hostname");
-//			Object[] line = (Object[]) iterate.next();
-//			ApplicationInstance app = new ApplicationInstance();
-//			app.setServerName((String) line[0]);
-//			app.setUsername((String) line[1]);
-//			app.setPassword((String) line[2]);
-//			app.setInstanceConfigurationFile(connectionDetails.get(0).get);
-//			for (InstanceConfigurationFile instanceConfigurationFile : connectionDetails) {
-//				app.setInstanceConfigurationFile(instanceConfigurationFile.setConfigFilePath((String) line[3]));
-//			}
-//			resultlist.add(app);
-//		}
-//
-//		System.out.println("Result List ..." + "  " + resultlist);
-//
-//		return resultlist;
 	}
-
-	/*
-	 * for (ApplicationInstance application : connectionDetails) { Server server =
-	 * new Server();
-	 * historicalBookTypeList.add(responseTypeMappingHelper(connectionDetails,server
-	 * )); } return connectionDetails; }
-	 */
-	/*
-	 * private ApplicationInstance
-	 * responseTypeMappingHelper(List<ApplicationInstance> connectionDetails,Server
-	 * server ) {
-	 * 
-	 * ApplicationInstance application = new ApplicationInstance(); // Server server
-	 * = new Server();
-	 * 
-	 * application.getServername().setServerName(server.getServerName());
-	 * application.setUsername(((ApplicationInstance)
-	 * connectionDetails).getUsername());
-	 * application.setPassword(((ApplicationInstance)
-	 * connectionDetails).getPassword());
-	 * application.setHomePath(((ApplicationInstance)
-	 * connectionDetails).getHomePath());
-	 * 
-	 * return application; }
-	 */
 }

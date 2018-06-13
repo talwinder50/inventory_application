@@ -4,9 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "Manager")
+// @Entity
+// @Table(name = "Manager")
 public class Manager {
+	
+	//TODO: Rename the table to person or achive a generic functionality. No manager speicific
 
 	@Id
 	private String managerID;

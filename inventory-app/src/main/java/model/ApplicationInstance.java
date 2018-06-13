@@ -46,7 +46,8 @@ public class ApplicationInstance {
 	private String password;	
 	@Column(name = "applookup_id",unique = false, nullable = true)
 	private int appLookupId;
-	
+	//@Column(name = "app_property_key",unique = false, nullable = true)
+	//private int applicationPropertyKey;
 	
 	@ManyToOne
 	@JoinColumn(name = "servername",updatable = false, insertable = false, referencedColumnName = "servername")
@@ -58,6 +59,9 @@ public class ApplicationInstance {
 	
 	@OneToMany(mappedBy = "applicationInstance")
     private List<InstanceConfigurationFile> instanceConfigurationFile;
+	
+	//@OneToMany(mappedBy = "propertyKey")
+   // private List<InstanceConfigurationValues> propertyKey;
 	
 	public int getPort() {
 		return port;
@@ -147,6 +151,12 @@ public class ApplicationInstance {
 	public void setInstanceConfigurationFile(List<InstanceConfigurationFile> instanceConfigurationFile) {
 		this.instanceConfigurationFile = instanceConfigurationFile;
 	}
+	/*public List<InstanceConfigurationValues> getPropertyKey() {
+		return propertyKey;
+	}
 
-
+	public void setPropertyKey(List<InstanceConfigurationValues> propertyKey) {
+		this.propertyKey = propertyKey;
+	}
+    */
 }

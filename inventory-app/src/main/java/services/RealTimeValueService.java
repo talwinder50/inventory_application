@@ -8,10 +8,10 @@ import services.model.RemoteServer;
 import vo.SearchServerRequest;
 import vo.SearchServerResponse;
 
-public interface DataSyncManagerService {
+public interface RealTimeValueService {
 	
 	
-	SearchServerResponse syncAll(SearchServerRequest request);
+	SearchServerResponse fetchRealtime(SearchServerRequest request);
 	List<ApplicationInstance> getDetails(SearchServerRequest request);
 	
 

@@ -2,16 +2,15 @@ package repository;
 
 import java.util.List;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import model.ApplicationInstance;
-import vo.ApplicationRequest;
 
-public interface ApplicationInstanceRepository extends PagingAndSortingRepository<ApplicationInstance,Integer>{
+public interface ApplicationInstanceRepository extends JpaRepository<ApplicationInstance,Integer>{
 
 	List<ApplicationInstance> findByApplicationEnviornmentLike(String env);
-	List<ApplicationInstance> findByServerLike(String serverName);
+	List<ApplicationInstance> findByServerServername(int applicationid);
 	List<ApplicationInstance> findByAppLookupId(int appLookupID);
-	                         
+	List<ApplicationInstance> findAll();
 
 }

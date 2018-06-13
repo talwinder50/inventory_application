@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "PatchingInfo")
+// @Entity
+// @Table(name = "PatchingInfo")
 public class PatchingInfo {
 	@Id
 	private String serverName;
